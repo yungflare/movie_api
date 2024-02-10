@@ -19,14 +19,44 @@ let topMovies = [
   {
     title:'Finding Nemo',
     director:'Andrew Stanton',
-    genre:'Animstion'
+    genre:'Animation'
   },
   {
-    title:'',
-    director:'',
-    genre:''
+    title:'Halloween',
+    director:'David Gordon Green',
+    genre:'Thriller'
   },
-]
+  {
+    title:'Half Baked',
+    director:'Tamra Davis',
+    genre:'Comedy'
+  },
+  {
+    title:'Paid in Full',
+    director:'Charles Stone III',
+    genre:'Crime'
+  },
+  {
+    title:'Boyz n the Hood',
+    director:'John Singleton',
+    genre:'Crime'
+  },
+  {
+    title:'Juice',
+    director:'Ernest Dickerson',
+    genre:'Crime'
+  },
+  {
+    title:'Fractured',
+    director:'Brad Anderson',
+    genre:'Thriller'
+  },
+  {
+    title:'A Silent Voice',
+    director:'Naoko Yamada',
+    genre:'Romance'
+  },
+];
 
 let myLogger = (req,res,next) => {
   console.log(req.url);
@@ -46,7 +76,7 @@ app.use(methodOverride());
 
 
 app.get('/movies', (req, res, next) => {
-   res.send('My Top 10 Movies: ');
+   res.json(topMovies);
 });
   
 app.get('/', (req, res) => {
