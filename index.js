@@ -5,6 +5,29 @@ const  methodOverride = require('method-override');
 
 const app = express();
 
+let topMovies = [
+  {
+    title:'Shrek',
+    director:'Andrew Adamson',
+    genre:'Animation'
+  },
+  {
+    title:'Fight Club',
+    director:'David Fincher',
+    genre:'Drama'
+  },
+  {
+    title:'Finding Nemo',
+    director:'Andrew Stanton',
+    genre:'Animstion'
+  },
+  {
+    title:'',
+    director:'',
+    genre:''
+  },
+]
+
 let myLogger = (req,res,next) => {
   console.log(req.url);
   next();
@@ -21,10 +44,6 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(methodOverride());
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
-});
 
 app.get('/movies', (req, res, next) => {
    res.send('My Top 10 Movies: ');
@@ -32,6 +51,11 @@ app.get('/movies', (req, res, next) => {
   
 app.get('/', (req, res) => {
   res.send('This is the endpoint! ');
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
 });
 
 app.listen(8080, () => {
