@@ -134,7 +134,7 @@ app.get('/directors/:name', (req, res) => {
   res.send('Data about a director by name');
 });
 
-// registration for users 
+ // registration for users 
 app.post('/users/register', (req, res) => {
   res.send('Confirmation of successful registration');
 });
