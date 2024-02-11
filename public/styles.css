@@ -1,0 +1,20 @@
+body {
+    background-color: pink;
+}
+h1 {
+    color: black;
+    text-align: center;
+}
+table {
+    border-radius: 10px;
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 5px solid black;
+    text-align: left;
+    padding: 8px;
+}
+th, td {
+    background-color: pink;
+}

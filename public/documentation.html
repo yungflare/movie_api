@@ -5,30 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title> My Flix </title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<h1> Project 2: My Flix: Documention! </h1>
 <body>
-<h2> API Documention </h2>
+<h1> API Documention </h1>
 <table>
     <tr>
-        <th>Request</th>
+        <th>HTTP METHOD</th>
         <th>URL</th>
-        <th>Response</th>
+        <th>REQUEST</th>
+        <th>Request body data format</th>
+        <th>Response body data format</th>
     </tr>
     <tr>
         <td>GET</td>
         <td>/movies</td>
         <td>List of all movies</td>
+        <td>A JSON object holding data about all the movies. <br>
+        Structured like: { <br>
+            Title: "Shrek" <br>
+        director: "Andrew Adamson" <br>
+        genre: "Animation" } </td>
+        <td>The full list of movies will show following <br>
+        the same body format as "request" </td>
     </tr>
     <tr>
         <td>GET</td>
         <td>/movies/:title</td>
         <td>Data about a movie by title</td>
+        <td>A JSON object holding data about
+        a specific movie. <br> Structured like: <br>
+    { Title: "Shrek" <br>
+    director: "Andrew Adamson" <br>
+    genre: "Animation" } </td>
+    <td> One movie will show with following info: <br>
+    Title, Director, Genre </td>
     </tr>
     <tr>
         <td>GET</td>
         <td>/genres/:name</td>
         <td>Data about a genre by name/title</td>
+        <td>  </td>
     </tr>
     <tr>
         <td>GET</td>
