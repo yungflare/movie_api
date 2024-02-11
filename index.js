@@ -2,6 +2,7 @@ const express = require('express');
 const  morgan = require('morgan');
 const bodyParser = require('body-parser');
 const  methodOverride = require('method-override');
+const uuid = require('uuid');
 
 const app = express();
 
@@ -86,6 +87,21 @@ let movies = [
   }
 ];
 
+let users = [
+  {
+    id: 1,
+    name: 'Joe Kenda'
+  },
+  {
+    id: 2,
+    name: 'Russell Westbrook'
+  },
+  {
+    id: 3,
+    name: 'Amy Hoyos'
+  }
+];
+
 let myLogger = (req,res,next) => {
   console.log(req.url);
   next();
@@ -106,32 +122,38 @@ app.use(methodOverride());
 
 // Get list of all movies 
 app.get('/movies', (req,res) => {
-  // res.json(movies);
-  res.send('List of all movies');
-});
+  res.json(movies);
+})
 
 // getting a movie by title 
 app.get('/movies/:title', (req, res) => {
-  const title = req.params.title;
-  const movie = movies.find(movie => movie.title === title);
-  if (movie) {
-    res.send('Data about a movie by title');
-    // res.json(movie);
-  }else {
-    res.status(404).send('Movie not found');
-  }
+  res.json(movies.find( (movie) => {
+    return movie.title === req.params.title;
+}));
 });
 
 // getting data about a genre by name / title 
-app.get('/genres/:name', (req, res) => {
-  const name = req.params.name;
-  res.send('Data about a genre by name/title ');
-});
+app.get('/movies/genre/:genreName', (req, res) => {
+  const { genreName } = req.params;
+  const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
+
+  if (genre) {
+    res.status(200).json(genre);
+  }else {
+    res.status(400).send('Genre not found')
+  }
+})
 
 // getting data about a director by name 
-app.get('/directors/:name', (req, res) => {
-  const name = req.params.name;
-  res.send('Data about a director by name');
+app.get('/movies/directors/:directorName', (req, res) => {
+  const { directorName } = req.params;
+  const director = movies.find(movie => movie.Director.Name === directorName).Director;
+
+  if (director) {
+    res.status(200).json(director);
+  }else {
+    res.status(400).send('Director not found')
+  }
 });
 
  // registration for users 
