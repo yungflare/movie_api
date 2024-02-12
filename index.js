@@ -180,9 +180,9 @@ app.get('/movies/:title', (req, res) => {
   res.send('Data about a movie by title');
 });
 
-// getting data about a genre by name / title 
+// getting data about a genre
 app.get('/movies/genre/:genreName', (req, res) => {
-  res.send('Data about a genre by name/title');
+  res.send('Data about a genre');
 })
 
 // getting data about a director by name 
