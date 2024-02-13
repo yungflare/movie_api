@@ -41,7 +41,7 @@
     </tr>
     <tr>
         <td>GET</td>
-        <td>/genres/:genreName</td>
+        <td>movies/genre/:genreName</td>
         <td>Get a list of movies by genre </td>
         <td>A JSON object holding data about all the movies <br>
          based on the requested genre. <br>
@@ -53,7 +53,7 @@
     </tr>
     <tr>
         <td>GET</td>
-        <td>/directors/:name</td>
+        <td>movies/director/:directorName</td>
         <td>Data about a director by name</td>
         <td>A JSON objecting holding data on a <br>
         director with a list of movies by <br>
@@ -89,21 +89,21 @@
         <td>Confirmation that a movie has been added to favorites</td>
         <td> A pop up message that the movie was <br>
         added to favorites. <br>
-    "Tittle Here has been added to you favorites!"</td>
+    "Tittle Here has been added to favorites!"</td>
     </tr>
     <tr>
         <td>DELETE</td>
         <td>/users/:id/favorites/:movieId</td>
         <td>Confirmation that a movie has been removed from favorites</td>
         <td> A pop up message that the movie: "Title Here has <br>
-        been sucessfully removed". </td>
+        been removed". </td>
     </tr>
     <tr>
         <td>DELETE</td>
         <td>/users/:id</td>
         <td>Confirmation of successful deregistration</td>
         <td> A pop message confirming cancellation. <br> 
-        "username account has been deleted". </td>
+        "username has been deleted". </td>
     </tr>
    
 </table>
