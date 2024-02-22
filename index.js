@@ -1,5 +1,6 @@
 const express = require('express');
 const  morgan = require('morgan');
+const bodyParser = require('body-parser');
 const  methodOverride = require('method-override');
 const uuid = require('uuid');
 const mongoose = require('mongoose');
@@ -182,6 +183,37 @@ app.put('/users/:Username', async (req, res) => {
   })
 });
 
+// Add a Movie to User's List with Mongoose 
+app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+  await Users.findOneAndUpdate({ Username: req.params.Username }, {
+    $push: { FavoriteMovies: req.params.MovieID }
+  },
+  { new: true })
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+// DELETE a user by Username with Mongoose 
+app.delete('/users/:Username', async (req, res) => {
+  await Users.findOneAndRemove({ Username: req.params.Username })
+  .then((user) => {
+    if (!user) {
+      res.status(400).send(req.params.Username + ' was not found');
+    } else {
+      res.status(200).send(req.params.Username + ' was deleted');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
 
 // Get list of all movies 
 app.get('/movies', (req,res) => {
@@ -254,18 +286,18 @@ app.get('/movies/directors/:directorName', (req, res) => {
 // });
 
 // Adding a movie to users favorite 
-app.post('/users/:id/:movieTitle', (req, res) => {
-  const { id, movieTitle } = req.params;
+// app.post('/users/:id/:movieTitle', (req, res) => {
+//   const { id, movieTitle } = req.params;
 
-  let user = users.find( user => user.id == id);
+//   let user = users.find( user => user.id == id);
 
-  if (user){
-    user.favoriteMovies.push(movieTitle);
-    res.status(200).send('Movie has been added to favorites');
-  } else {
-    res.status(400).send('Error adding movie to favorites')
-  }
-});
+//   if (user){
+//     user.favoriteMovies.push(movieTitle);
+//     res.status(200).send('Movie has been added to favorites');
+//   } else {
+//     res.status(400).send('Error adding movie to favorites')
+//   }
+// });
 
 // Deleting a movie from users favorites 
 app.delete('/users/:id/:movieTitle', (req, res) => {
@@ -282,19 +314,19 @@ app.delete('/users/:id/:movieTitle', (req, res) => {
 });
 
 // Deleting users account 
-app.delete('/users/:id', (req, res) => {
-  const { id } = req.params;
+// app.delete('/users/:id', (req, res) => {
+//   const { id } = req.params;
 
-  const user = users.find( user => user.id == id);
+//   const user = users.find( user => user.id == id);
 
-  if (user) {
-      users = users.filter( user => user.id != id );
-      res.status(200).send('User has been deleted');
-  } else {
-    res.status(400).send('Error deleting user')
-  }
+//   if (user) {
+//       users = users.filter( user => user.id != id );
+//       res.status(200).send('User has been deleted');
+//   } else {
+//     res.status(400).send('Error deleting user')
+//   }
 
-});
+// });
 
 // error handler 
 app.use((err, req, res, next) => {
