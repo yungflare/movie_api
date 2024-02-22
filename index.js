@@ -1,10 +1,16 @@
 const express = require('express');
 const  morgan = require('morgan');
-const bodyParser = require('body-parser');
 const  methodOverride = require('method-override');
 const uuid = require('uuid');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let topMovies = [
   {
@@ -126,11 +132,6 @@ app.use(myLogger);
 app.use(morgan('common'));
 app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
-app.use(bodyParser.json());
 app.use(methodOverride());
 
 // Get list of all movies 
