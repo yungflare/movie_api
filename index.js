@@ -134,7 +134,7 @@ app.use(express.static('public'));
 
 app.use(methodOverride());
 
-// Create in Mongoose - add a user
+// CREATE in Mongoose - add a user
 app.post('/users', async (req, res) => {
   await Users.findOne({ Username: req.body.Username })
   .then((user) => {
@@ -160,6 +160,28 @@ app.post('/users', async (req, res) => {
     res.status(500).send('Error:' + error);
   });
 });
+
+// UPDATE in mongoose - updating user info
+app.put('/users/:Username', async (req, res) => {
+  await Users.findOneAndUpdate ({ Username: req.params.Username }, {
+    $set: 
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday 
+    }
+  },
+  { new: true})
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  })
+});
+
 
 // Get list of all movies 
 app.get('/movies', (req,res) => {
@@ -216,20 +238,20 @@ app.get('/movies/directors/:directorName', (req, res) => {
 // });
 
 // updating user info 
-app.put('/users/:id', (req, res) => {
-  const { id } = req.params;
-  const updatedUser = req.body;
+// app.put('/users/:id', (req, res) => {
+//   const { id } = req.params;
+//   const updatedUser = req.body;
 
-  let user = users.find( user => user.id == id);
+//   let user = users.find( user => user.id == id);
 
-  if (user){
-    user.name = updatedUser.name;
-    res.status(200).json(user)
-  } else {
-    res.status(400).send('User not found')
-  }
+//   if (user){
+//     user.name = updatedUser.name;
+//     res.status(200).json(user)
+//   } else {
+//     res.status(400).send('User not found')
+//   }
   
-});
+// });
 
 // Adding a movie to users favorite 
 app.post('/users/:id/:movieTitle', (req, res) => {
