@@ -22,10 +22,13 @@
         <td>/movies</td>
         <td>List of all movies</td>
         <td>A JSON object holding data on all the movies. <br>
-        Structured like: { <br>
-            Title: "Shrek" <br>
-        director: "Andrew Adamson" <br>
-        genre: "Animation" } </td>
+        Containing following info: <br>
+        Title: <br>
+        Director: <br>
+        Director Bio: <br>
+        Genre:<br>
+        Description of genre: </td>
+
     </tr>
     <tr>
         <td>GET</td>
@@ -33,77 +36,94 @@
         <td>Data about a movie by title</td>
         <td>A JSON object holding data on <br>
         the specific movie requested. <br>
-        Structured like: "Results for: " { <br>
-        Title: "Shrek" <br>
-        director: "Andrew Adamson" <br>
-        genre: "Animation" }
+        Containing following info: <br>
+        Title: <br>
+        Director: <br>
+        Director Bio: <br>
+        Genre:<br>
+        Description of genre:  
     </td>
     </tr>
     <tr>
         <td>GET</td>
-        <td>movies/genre/:GenreName</td>
+        <td>/movies/genres/:GenreName</td>
         <td>Get a list of movies by genre </td>
-        <td>A JSON object holding data about all the movies <br>
-         based on the requested genre. <br>
-        "Results for [genre here]: {
-            title:<br>
-            director:<br>
-            genre:<br>
-        }" </td>
+        <td>A JSON object all the movies
+         based <br> on the requested genre. <br>
+         [List of all movies based on genre] <br>
+            Genre:<br>
+            Description of genre:<br>
+            Title:<br>
+            Director: <br>
+            Director Bio: 
+         </td>
     </tr>
     <tr>
         <td>GET</td>
-        <td>movies/director/:DirectorName</td>
+        <td>movies/directors/:DirectorName</td>
         <td>Data about a director by name</td>
         <td>A JSON objecting holding data on a <br>
         director with a list of movies by <br>
     said director.<br>
-    "Results for [director name]: {
-        title: <br>
-        director: <br>
-        genre: <br>
-    }"</td>
+    Containing following info: <br>
+    Title: <br>
+    Director: <br>
+    Director Bio: <br>
+    Genre:<br>
+    Description of genre:     
+    </td>
     </tr>
     <tr>
         <td>POST</td>
-        <td>/users/register</td>
-        <td>Confirmation of successful registration</td>
+        <td>/users</td>
+        <td>Registration for new user</td>
         <td> A JSON object holding information of <br>
-        the new user. Structured like: { <br>
-        name: "Joe Kenda" <br>
-        email: "Joe_Kenda@email.com" <br>
-        username:"JoeLikeMovies" <br>
-        password: "xxxxx5@" } </td>
+        the new user. Structured like:  <br>
+        Username: "Joe Kenda" <br>
+        Password: "xxxxx"  <br>
+        Email: "Joe_Kenda@email.com" <br>
+        Birthday: "MM/DD/YYYY"  </td>
     </tr>
     <tr>
         <td>PUT</td>
-        <td>/users/:id</td>
-        <td>Confirmation of successful user info update</td>
-        <td> A pop up message that the update has been <br>
-        successful.<br>
-    "Profile successfully updated!"</td>
+        <td>/users/:Username</td>
+        <td>Updating info to a users account</td>
+        <td> User's information is shown with updated information <br>
+            Example = <br>
+            Username: <br>
+            Password: <br>
+            Email: <br>
+            Birthday: </td>
     </tr>
     <tr>
         <td>POST</td>
-        <td>/users/:id/favorites</td>
-        <td>Confirmation that a movie has been added to favorites</td>
-        <td> A pop up message that the movie was <br>
-        added to favorites. <br>
-    "Tittle Here has been added to favorites!"</td>
+        <td>/users/:Username/movies/ObjectId</td>
+        <td>Users profile is shown with updated list <br>
+        of favorite movies.</td>
+        <td> User's information is shown with updated list <br>
+            Username: <br>
+            Password: <br>
+            Email: <br>
+            Birthday: <br>
+            Favorite_Movies: </td>
+    </tr>
+    <tr>
+        <td>POST</td>
+        <td>/users/:Username/movies/:ObjectId</td>
+        <td>Users profile is shown with updated Favorite Movie List</td>
+        <td> User's information is shown with updated list <br>
+            Username: <br>
+            Password: <br>
+            Email: <br>
+            Birthday: <br>
+            Favorite_Movies: </td>
     </tr>
     <tr>
         <td>DELETE</td>
-        <td>/users/:id/favorites/:movieId</td>
-        <td>Confirmation that a movie has been removed from favorites</td>
-        <td> A pop up message that the movie: "Title Here has <br>
-        been removed". </td>
-    </tr>
-    <tr>
-        <td>DELETE</td>
-        <td>/users/:id</td>
+        <td>/users/:Username</td>
         <td>Confirmation of successful deregistration</td>
-        <td> A pop message confirming cancellation. <br> 
-        "username has been deleted". </td>
+        <td> A message confirming cancellation. <br> 
+        "username was deleted". </td>
     </tr>
    
 </table>
