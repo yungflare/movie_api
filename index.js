@@ -97,7 +97,8 @@ app.post('/users', async (req, res) => {
   });
 
 // READ - Get movie by Title
-  app.get('/movies/:Title', async (req, res) => {
+  app.get('/movies/:Title', passport.authenticate('jwt', {
+    session: false}), async (req, res) => {
     Movies.findOne({ Title: req.params.Title })
     .then((movie) => {
       res.json(movie);
@@ -109,7 +110,8 @@ app.post('/users', async (req, res) => {
   });
 
 // READ - Get Data about a Genre 
-  app.get('/movies/genres/:genreName', async (req, res) => {
+  app.get('/movies/genres/:genreName', passport.authenticate('jwt', {
+    session: false}), async (req, res) => {
     await Movies.find({ 'Genre.Name': req.params.genreName })
     .then((movies) => {
       res.json(movies);
@@ -121,7 +123,8 @@ app.post('/users', async (req, res) => {
   });
 
 // READ - Get data about a Director 
-  app.get('/movies/directors/:directorName', async (req, res) => {
+  app.get('/movies/directors/:directorName', passport.authenticate('jwt', {
+    session: false}), async (req, res) => {
     await Movies.find({ 'Director.Name': req.params.directorName })
     .then((movies) => {
       res.json(movies);
@@ -159,7 +162,8 @@ app.put('/users/:Username', passport.authenticate ('jwt', { session: false }), a
 });
 
 // Add a Movie to User's List with Mongoose 
-app.put('/users/:Username/movies/:ObjectId', async (req, res) => {
+app.put('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
+  session: false}), async (req, res) => {
   try {
     const updatedUser = await Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -174,7 +178,8 @@ app.put('/users/:Username/movies/:ObjectId', async (req, res) => {
 });
 
 // REMOVE A movie from list with Mongoose 
-app.post('/users/:Username/movies/:ObjectId', async (req, res) => {
+app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
+  session: false}), async (req, res) => {
   try {
     const updatedUser = await Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -190,7 +195,8 @@ app.post('/users/:Username/movies/:ObjectId', async (req, res) => {
 
 
 // DELETE a user by Username with Mongoose 
-app.delete('/users/:Username', async (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', {
+  session: false}), async (req, res) => {
   await Users.findOneAndDelete({ Username: req.params.Username })
   .then((user) => {
     if (!user) {
