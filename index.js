@@ -8,6 +8,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.Movie;
@@ -68,13 +72,14 @@ app.post('/users', async (req, res) => {
   });
 
 // READ - Get a list of all Movies
-  app.get('/movies', async (req, res) => {
-    Movies.find()
+  app.get('/movies', passport.authenticate('jwt', {
+    session: false}), async (req, res) => {
+    await Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
       res.status(500).send('Error: ' + err);
     });
   });
@@ -128,15 +133,20 @@ app.post('/users', async (req, res) => {
 });
 
 // UPDATE in mongoose - updating user info
-app.put('/users/:Username', async (req, res) => {
-  await Users.findOneAndUpdate ({ Username: req.params.Username }, {
-    $set: 
+app.put('/users/:Username', passport.authenticate ('jwt', { session: false }), async (req, res) => {
+    if(req.user.Username !== req.params.Username)
     {
-      Username: req.body.Username,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday 
+      return res.status(400).send('Permission denied');
     }
+
+    await Users.findOneAndUpdate ({ Username: req.params.Username }, {
+      $set: 
+      {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday 
+      }
   },
   { new: true})
   .then((updatedUser) => {
