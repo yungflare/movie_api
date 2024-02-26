@@ -15,6 +15,8 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
+const { check, validationResult } = require('express-validator');
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.Movie;
@@ -36,7 +38,17 @@ app.use(express.static('public'));
 app.use(methodOverride());
 
 // CREATE in Mongoose - add a user
-app.post('/users', async (req, res) => {
+app.post('/users', [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], async (req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
   let hashedPassword = Users.hashPassword(req.body.Password);
   await Users.findOne({ Username: req.body.Username })
   .then((user) => {
@@ -150,7 +162,7 @@ app.put('/users/:Username', passport.authenticate ('jwt', { session: false }), a
       $set: 
       {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday 
       }
