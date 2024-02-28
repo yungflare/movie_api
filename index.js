@@ -40,6 +40,11 @@ app.use(express.static('public'));
 
 app.use(methodOverride());
 
+// testing WELCOME code 
+app.get("/", (req, res) => {
+  res.send("Welcome to My Movies!");
+});
+
 // CREATE in Mongoose - add a user
 app.post('/users', [
   check('Username', 'Username is required').isLength({min: 5}),
