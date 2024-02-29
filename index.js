@@ -108,17 +108,6 @@ app.post('/users', [
     });
   });
 
-// READ - Get a list of all Users (personal use)
-  app.get('/users', async (req, res) => {
-    Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error:' + err);
-    });
-  });
 
 // READ - Get movie by Title
   app.get('/movies/:Title', passport.authenticate('jwt', {
