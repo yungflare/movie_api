@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to My Movies!");
 });
 
-// CREATE in Mongoose - add a user
+// CREATE - add a user
 app.post('/users', [
   check('Username', 'Username is required').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -83,7 +83,7 @@ app.post('/users', [
   });
 });
 
-// READ - Get User by Username with Mongoose
+// READ - Get User by Username 
   app.get('/users/:Username', async (req, res) => {
     await Users.findOne({ Username: req.params.Username })
     .then((user) => {
@@ -148,7 +148,7 @@ app.post('/users', [
   });
 });
 
-// UPDATE in mongoose - updating user info
+// UPDATE  - updating user info
 app.put('/users/:Username', [
   check('Username', 'Username is required').isLength({
     min: 5
@@ -191,7 +191,7 @@ app.put('/users/:Username', [
     })
 });
 
-// Add a Movie to User's List with Mongoose 
+// Add a Movie to User's List of Favorites
 app.put('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false}), async (req, res) => {
   try {
@@ -207,7 +207,7 @@ app.put('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   }
 });
 
-// REMOVE A movie from list with Mongoose 
+// REMOVE A movie from list of Favorites
 app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false}), async (req, res) => {
   try {
@@ -224,7 +224,7 @@ app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
 });
 
 
-// DELETE a user by Username with Mongoose 
+// DELETE a user by Username 
 app.delete('/users/:Username', passport.authenticate('jwt', {
   session: false}), async (req, res) => {
   await Users.findOneAndDelete({ Username: req.params.Username })
