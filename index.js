@@ -217,7 +217,7 @@ app.put('/users/:Username', [
 });
 
 // Add a Movie to User's List of Favorites
-app.put('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
+app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
   try {
