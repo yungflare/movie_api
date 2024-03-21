@@ -238,7 +238,7 @@ app.put('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
 });
 
 // REMOVE A movie from list of Favorites
-app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
+app.delete('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
   try {
