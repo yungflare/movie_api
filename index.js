@@ -124,6 +124,25 @@ app.get('/movies', passport.authenticate('jwt', {
     });
 });
 
+// Get List of Users Favorite Movies 
+app.get('/users/:Username/favorite-movies', passport.authenticate('jwt', {
+  session: false
+}), async (req, res) => {
+  try {
+    const user = await Users.findOne({
+      Username: req.params.Username
+    });
+    const favoriteMovies = await Movies.find({
+      _id: {
+        $in: user.favorite_Movies
+      }
+    });
+    res.json(favoriteMovies);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  }
+})
 
 // READ - Get movie by Title
 app.get('/movies/:Title', passport.authenticate('jwt', {
