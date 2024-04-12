@@ -236,7 +236,7 @@ app.put('/users/:Username', [
 });
 
 // Add a Movie to User's List of Favorites
-app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {
+app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
   try {
@@ -244,7 +244,7 @@ app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {
       Username: req.params.Username
     }, {
       $push: {
-        favorite_Movies: req.params.movieId
+        favorite_Movies: req.params.ObjectId
       }
     }, {
       new: true
@@ -257,7 +257,7 @@ app.post('/users/:Username/movies/:movieId', passport.authenticate('jwt', {
 });
 
 // REMOVE A movie from list of Favorites
-app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {
+app.delete('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
   try {
@@ -265,7 +265,7 @@ app.delete('/users/:Username/movies/:movieId', passport.authenticate('jwt', {
       Username: req.params.Username
     }, {
       $pull: {
-        favorite_Movies: req.params.movieId
+        favorite_Movies: req.params.ObjectId
       }
     }, {
       new: true
