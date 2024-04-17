@@ -11,10 +11,7 @@ app.use(express.urlencoded({
 }));
 
 const cors = require('cors');
-// app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:1234'
-}));
+app.use(cors());
 
 let auth = require('./auth')(app);
 const passport = require('passport');
