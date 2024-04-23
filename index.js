@@ -11,7 +11,11 @@ app.use(express.urlencoded({
 }));
 
 const cors = require('cors');
+<<<<<<< HEAD
 let allowedOrigins = ['http://localhost:8080', '`https://movie-api-kiz1.onrender.com'];
+=======
+let allowedOrigins = ['http://localhost:8080', 'https://movie-api-kiz1.onrender.com', 'http://localhost:1234'];
+>>>>>>> parent of aca2a22 (ok)
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -270,7 +274,7 @@ app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
 });
 
 
-// DELETE a user by Username 
+// DELETE a user by username
 app.delete('/users/:Username', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
