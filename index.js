@@ -11,8 +11,7 @@ app.use(express.urlencoded({
 }));
 
 const cors = require('cors');
-<<<<<<< HEAD
-let allowedOrigins = ['http://localhost:8080', 'https://movie-api-kiz1.onrender.com', 'http://localhost:1234'];
+let allowedOrigins = ['http://localhost:8080', '`https://movie-api-kiz1.onrender.com'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -24,9 +23,6 @@ app.use(cors({
     return callback(null, true);
   }
 }));
-=======
-app.use(cors());
->>>>>>> parent of f59d078 (testing for CORS issues)
 
 let auth = require('./auth')(app);
 const passport = require('passport');
