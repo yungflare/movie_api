@@ -11,6 +11,7 @@ app.use(express.urlencoded({
 }));
 
 const cors = require('cors');
+<<<<<<< HEAD
 let allowedOrigins = ['http://localhost:8080', 'https://movie-api-kiz1.onrender.com', 'http://localhost:1234'];
 
 app.use(cors({
@@ -23,6 +24,9 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+=======
+app.use(cors());
+>>>>>>> parent of f59d078 (testing for CORS issues)
 
 let auth = require('./auth')(app);
 const passport = require('passport');
@@ -270,7 +274,7 @@ app.post('/users/:Username/movies/:ObjectId', passport.authenticate('jwt', {
 });
 
 
-// DELETE a user by username
+// DELETE a user by Username 
 app.delete('/users/:Username', passport.authenticate('jwt', {
   session: false
 }), async (req, res) => {
