@@ -11,7 +11,7 @@ app.use(express.urlencoded({
 }));
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myfirstmovie.netlify.app'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myfirstmovie.netlify.app', 'https://movie-api-kiz1.onrender.com'];
 
 app.use(cors({
   origin: (origin, callback) => {
