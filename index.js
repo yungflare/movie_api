@@ -202,20 +202,25 @@ app.put('/users/:Username', [
       errors: errors.array()
     });
   }
-  let hashedPassword = Users.hashPassword(req.body.Password);
+
   if (req.user.Username !== req.params.Username) {
-    return res.status(400).send('Permission denied');
+    return res.status(400).send('Permission Denied');
+  }
+
+  let updatedFields = {
+    Username: req.body.Username,
+    Email: req.body.Email,
+    Birthday: req.body.Birthday,
+  };
+
+  if (req.body.Password) {
+    updatedFields.Password = Users.hashPassword(req.body.Password);
   }
 
   await Users.findOneAndUpdate({
       Username: req.params.Username
     }, {
-      $set: {
-        Username: req.body.Username,
-        Password: hashedPassword,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-      }
+      $set: updatedFields
     }, {
       new: true
     })
@@ -225,7 +230,7 @@ app.put('/users/:Username', [
     .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
-    })
+    });
 });
 
 // Add a Movie to User's List of Favorites
